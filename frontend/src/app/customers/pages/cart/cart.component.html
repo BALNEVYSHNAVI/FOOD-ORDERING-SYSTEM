@@ -1,0 +1,75 @@
+<div class="min-h-screen bg-gray-50 py-8">
+    <div class="container mx-auto px-4">
+      <h1 class="text-2xl font-bold mb-6 text-gray-800">Your Cart</h1>
+  
+      <div *ngIf="cartItems.length === 0" class="text-center text-gray-500">
+        <p>Your cart is empty.</p>
+        <a
+          href="/"
+          class="mt-4 inline-block px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+        >
+          Go to Menu
+        </a>
+      </div>
+  
+      <div *ngIf="cartItems.length > 0" class="bg-white rounded-lg shadow-lg p-6">
+        <div class="flex flex-col gap-4">
+          <div
+            *ngFor="let item of cartItems; let i = index"
+            class="flex justify-between items-center bg-gray-100 rounded-lg p-4"
+          >
+            <div class="flex items-center gap-4">
+              <img
+                [src]="item.image"
+                alt="Menu Item"
+                class="w-16 h-16 rounded-lg object-cover"
+              />
+              <div>
+                <h2 class="font-medium text-gray-800">{{ item.name }}</h2>
+                <p class="text-sm text-gray-500">{{ item.description }}</p>
+                <span class="text-sm text-gray-900 font-bold">₹{{ item.price }}</span>
+              </div>
+            </div>
+            <div class="flex items-center gap-4">
+              <div class="flex items-center gap-2">
+                <button
+                  class="px-2 py-1 bg-gray-200 rounded hover:bg-gray-300"
+                  (click)="updateQuantity(i, false)"
+                >
+                  -
+                </button>
+                <span class="text-gray-700">{{ item.quantity }}</span>
+                <button
+                  class="px-2 py-1 bg-gray-200 rounded hover:bg-gray-300"
+                  (click)="updateQuantity(i, true)"
+                >
+                  +
+                </button>
+              </div>
+              <button
+                class="text-red-500 hover:text-red-700"
+                (click)="removeItem(i)"
+              >
+                <i class="fa fa-trash"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+  
+        <div class="mt-6">
+          <div class="flex justify-between items-center text-lg font-medium text-gray-800">
+            <span>Total:</span>
+            <span>₹{{ totalPrice }}</span>
+          </div>
+  
+          <button
+            class="mt-6 w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700"
+            (click)="orderNow()"
+          >
+            Order Now
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

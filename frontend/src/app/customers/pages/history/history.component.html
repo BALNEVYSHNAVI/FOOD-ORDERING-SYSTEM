@@ -1,0 +1,40 @@
+<!-- order-history.component.html -->
+<div class="min-h-screen bg-gray-50 py-8">
+    <div class="container mx-auto px-4">
+      <h1 class="text-3xl font-bold mb-6 text-gray-800">Your Order History</h1>
+  
+      <div *ngIf="orderHistory.length === 0" class="text-center text-gray-500">
+        <p>You have not placed any orders yet.</p>
+      </div>
+  
+      <div *ngIf="orderHistory.length > 0">
+        <div *ngFor="let order of orderHistory" class="bg-white rounded-lg shadow-md p-6 mb-6">
+          <div class="flex justify-between items-center mb-4">
+            <div>
+              <h2 class="text-xl font-semibold text-gray-800">Order #{{ order.orderId }}</h2>
+              <p class="text-sm text-gray-500">Date: {{ order.orderDate.split("T")[0] }}</p>
+            </div>
+            <span class="text-lg font-medium text-green-600">{{ order.deliveryStatus }}</span>
+          </div>
+  
+          <div class="mb-4">
+            <h3 class="font-medium text-gray-700">Items:</h3>
+            <ul>
+              <li *ngFor="let item of order.menuItem" class="flex justify-between py-2 border-b">
+                <span>{{ item.name }} (x{{ item.quantity }})</span>
+                <span>₹{{ order.totalPrice }}</span>
+              </li>
+            </ul>
+          </div>
+  
+          <div class="flex justify-between items-center mt-4">
+            <span class="font-semibold text-gray-800">Total: ₹{{ order.totalPrice }}</span>
+            <button class="bg-teal-500 p-2 rounded-md text-white" (click)="openFeedbackModel(order.orderId)">Give your feedback</button>
+          </div>
+          <app-feedback *ngIf="isFeedBackModelOpen" [orderId]="selectedOrderId"></app-feedback>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  

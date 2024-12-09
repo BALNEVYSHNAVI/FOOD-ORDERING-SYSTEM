@@ -1,0 +1,32 @@
+<div class="menu-container p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+  <div *ngFor="let item of menuItems" class="menu-item bg-white p-4 rounded-lg shadow-md hover:shadow-lg">
+    <img [src]="item.image" alt="{{ item.name }}" class="w-full h-48 object-cover rounded-md">
+    <div class="mt-4">
+      <h3 class="text-xl font-semibold">{{ item.name }}</h3>
+      <p class="text-gray-600">{{ item.category.name }}</p>
+      <p class="text-gray-800">{{ item.description }}</p>
+      <div class="mt-2 flex items-center">
+        <ng-container *ngFor="let star of generateStars(item.avgRating); let i = index">
+          <svg
+            [attr.fill]="i < item.avgRating ? 'gold' : 'none'"
+            stroke="currentColor"
+            class="w-6 h-6"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M12 .587l3.668 7.429L24 9.66l-6 5.841 1.42 8.293L12 19.55 4.58 23.794 6 15.5 0 9.66l8.332-1.644L12 .587z"
+            ></path>
+          </svg>
+        </ng-container>
+        <span class="ml-2 text-gray-500">({{ item.avgRating.toFixed(1) }})</span>
+      </div>
+      <div class="mt-4 flex justify-between items-center">
+        <span class="text-lg font-bold text-gray-900"> ₹{{ item.price }}</span>
+        <button (click)="addToCart(item)" class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600">
+          Add to Cart
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

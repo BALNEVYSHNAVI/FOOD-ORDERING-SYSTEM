@@ -1,0 +1,65 @@
+<div class="container mx-auto p-6">
+    <div class="bg-white shadow rounded-lg p-6 mb-6">
+      <h2 class="text-xl font-bold mb-4">Assign Agent</h2>
+      <form (ngSubmit)="assignAgent()" class="space-y-4">
+        <div>
+          <label for="order" class="block text-sm font-medium text-gray-900">Order Name</label>
+          <select
+            [(ngModel)]="order.orderId"
+            name="order"
+            id="order"
+            class="mt-1 py-2 px-3 block w-full rounded-md shadow-sm border-gray-400 bg-gray-50 focus:border-gray-800 focus:ring-gray-800"
+          >
+            <option *ngFor="let order of orders" [value]="order.orderId">{{ order.userId.username }}</option>
+          </select>
+        </div>
+        <div>
+          <label for="agent" class="block text-sm font-medium text-gray-900">Agent Id</label>
+          <input type="text" [(ngModel)]="agentId" name="agentId" />
+          <!-- <select
+            [(ngModel)]="agentId"
+            name="agentId"
+            id="agent"
+            class="mt-1 py-2 px-3 block w-full rounded-md shadow-sm border-gray-400 bg-gray-50 focus:border-gray-800 focus:ring-gray-800"
+          >
+            <option *ngFor="let agent of agents" [value]="agent.agentId">{{ agent.name }}</option>
+          </select> -->
+        </div>
+        <button
+          type="submit"
+          class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:ring focus:ring-indigo-400"
+        >
+          Assign Agent
+        </button>
+      </form>
+    </div>
+  
+    <!-- Assigned Orders Table -->
+    <div class="bg-white shadow rounded-lg p-6">
+      <h2 class="text-xl font-bold mb-4">Assigned Agents</h2>
+      <table class="table-auto w-full text-left border-collapse border border-gray-200">
+        <thead>
+          <tr class="bg-gray-100">
+            <th class="border border-gray-200 px-4 py-2">Order</th>
+            <th class="border border-gray-200 px-4 py-2">Agent</th>
+            <th class="border border-gray-200 px-4 py-2">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let assignment of agents">
+            <td class="border border-gray-200 px-4 py-2">{{ assignment.assignedOrderId.orderId }}</td>
+            <td class="border border-gray-200 px-4 py-2">{{ assignment.name }}</td>
+            <td class="border border-gray-200 px-4 py-2">
+              <button
+                (click)="navigateToUpdateLocation(assignment.agentId)"
+                class="px-3 py-1 bg-green-600 text-white rounded-md hover:bg-green-700"
+              >
+                Update Location
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  

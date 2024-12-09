@@ -1,0 +1,39 @@
+/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* @import "ngx-toastr/toastr"; */
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+/* Custom class to hide on small screens (sm) */
+.hide-small {
+  display: none; /* Default display for larger screens */
+}
+
+/* Custom class to show on medium screens (md) and above */
+@media (min-width: 768px) {
+  .hide-small {
+    display: none; /* Hide on small screens (sm) */
+  }
+}
+
+/* Custom class to hide on medium (md) and larger screens */
+.hide-large {
+  display: block; /* Default display for small screens */
+}
+
+/* Custom class to show on medium (md) and larger screens */
+@media (min-width: 768px) {
+  .hide-large {
+    display: none; /* Hide on medium and larger screens */
+  }
+}

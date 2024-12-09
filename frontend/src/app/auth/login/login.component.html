@@ -1,0 +1,90 @@
+<div class="flex items-center justify-center min-h-screen bg-gradient-to-br from-white via-gray-100 to-gray-200">
+  <div class="bg-white shadow-lg rounded-lg mx-6 p-8 md:max-w-md w-full transform transition-all duration-500 hover:shadow-xl">
+    <!-- Logo -->
+    <div class="flex justify-center mb-6">
+      <div class="w-14 h-14 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center shadow-md">
+        <svg class="w-8 h-8 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7l6 6-6 6M21 7l-6 6 6 6" />
+        </svg>
+      </div>
+    </div>
+
+    <!-- Title -->
+    <h2 class="text-2xl font-extrabold text-center text-gray-700 mb-4">
+      {{ role ? "Customer Login" : "Admin Login" }}
+    </h2>
+    <p class="text-center text-gray-500 mb-6">
+      <span *ngIf="!role;">
+        <a href="/login/customer" class="text-blue-600 hover:underline">Customer Login</a>
+      </span>
+      <span *ngIf="role;">
+        <a href="/login" class="text-blue-600 hover:underline">Admin Login</a>
+      </span>
+    </p>
+
+    <!-- Form -->
+    <form (ngSubmit)="login()">
+      <!-- Email Input -->
+      <div class="mb-5">
+        <label for="email" class="block text-sm font-medium text-gray-600 mb-2">
+          {{ role ? "Email" : "Email" }}
+        </label>
+        <input
+          type="email"
+          id="email"
+          [(ngModel)]="email"
+          name="email"
+          placeholder="Enter your {{ role ? 'email' : 'email' }}"
+          class="w-full px-4 py-3 rounded-md border border-gray-300 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none"
+          required
+        />
+      </div>
+
+      <!-- Password Input -->
+      <div class="mb-6">
+        <label for="password" class="block text-sm font-medium text-gray-600 mb-2">Password</label>
+        <input
+          type="password"
+          id="password"
+          [(ngModel)]="password"
+          name="password"
+          placeholder="Enter your password"
+          class="w-full px-4 py-3 rounded-md border border-gray-300 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none"
+          required
+        />
+      </div>
+
+      <!-- Submit Button -->
+      <button
+        type="submit"
+        class="w-full py-3 font-semibold text-white bg-gradient-to-r from-blue-500 to-blue-400 rounded-lg shadow-md hover:shadow-lg focus:ring-4 focus:ring-blue-200 focus:outline-none disabled:opacity-50"
+        [disabled]="isLoading"
+      >
+        {{ isSignUp ? 'Sign Up' : 'Login' }}
+      </button>
+
+      <!-- Success and Error Messages -->
+      <div *ngIf="successMessage" class="mt-4 text-center text-green-600 text-sm">
+        {{ successMessage }}
+      </div>
+      <div *ngIf="errorMessage" class="mt-4 text-center text-red-600 text-sm">
+        {{ errorMessage }}
+      </div>
+    </form>
+
+    <!-- Divider -->
+    <div class="my-6 border-t border-gray-200"></div>
+
+    <!-- Additional Links -->
+    <div class="text-center">
+      <!-- <p class="text-sm text-gray-500">
+        Forgot your password? 
+        <a href="/forgot-password" class="text-blue-600 hover:underline">Reset it here</a>
+      </p> -->
+      <p class="text-sm text-gray-500 mt-2">
+        New here? 
+        <a href="/register" class="text-blue-600 hover:underline">Create an account</a>
+      </p>
+    </div>
+  </div>
+</div>

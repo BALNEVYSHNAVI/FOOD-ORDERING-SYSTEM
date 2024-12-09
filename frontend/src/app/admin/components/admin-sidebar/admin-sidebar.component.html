@@ -1,0 +1,86 @@
+<div class="flex min-h-screen bg-gray-100">
+  <!-- Sidebar -->
+  <aside class="w-[20em] bg-white shadow-lg">
+    <!-- Header -->
+    <div class="p-6 border-b">
+      <h2 class="text-2xl font-bold text-gray-800 flex items-center gap-4">
+        <img src="/images/logo.jpg" class="w-16 h-16 rounded-full" alt="">
+        Admin Panel
+      </h2>
+    </div>
+
+    <!-- Sidebar Links -->
+    <nav class="mt-6">
+      <ul class="space-y-4">
+        <li *ngFor="let route of adminRoutes">
+          <!-- Handle parent routes -->
+          <ng-container *ngIf="!route.children">
+            <a
+              [routerLink]="route.path"
+              routerLinkActive="bg-indigo-100 text-indigo-700"
+              class="flex items-center px-6 py-3 text-gray-600 hover:bg-indigo-50 hover:text-indigo-700 rounded-lg transition"
+            >
+              <span class="text-lg mr-3">{{ route.icon }}</span>
+              <span class="font-medium">{{ route.name }}</span>
+            </a>
+          </ng-container>
+
+          <!-- Handle routes with children -->
+          <ng-container *ngIf="route.children">
+            <div
+              class="flex items-center justify-between px-6 py-3 text-gray-600 hover:bg-indigo-50 hover:text-indigo-700 rounded-lg transition cursor-pointer"
+              (click)="toggleSection(route.name.toLowerCase())"
+            >
+              <div class="flex items-center">
+                <span class="text-lg mr-3">{{ route.icon }}</span>
+                <span class="font-medium">{{ route.name }}</span>
+              </div>
+              <span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    [attr.d]="expandedSections[route.name.toLowerCase()] ? 'M5 10l5 5 5-5H5z' : 'M10 5l5 5H5l5-5z'"
+                  />
+                </svg>
+              </span>
+            </div>
+            <!-- Child links -->
+            <ul
+              *ngIf="expandedSections[route.name.toLowerCase()]"
+              class="ml-8 mt-2 space-y-2"
+            >
+              <li *ngFor="let child of route.children">
+                <a
+                  [routerLink]="child.path"
+                  routerLinkActive="bg-indigo-100 text-indigo-700"
+                  class="flex items-center px-6 py-2 text-gray-600 hover:bg-indigo-50 hover:text-indigo-700 rounded-lg transition"
+                >
+                  {{ child.name }}
+                </a>
+              </li>
+            </ul>
+          </ng-container>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Logout -->
+    <div class="mt-auto p-6 border-t">
+      <button
+        (click)="logout()"
+        class="w-full flex items-center justify-center px-6 py-3 text-red-600 border border-red-600 hover:bg-red-50 rounded-lg transition"
+      >
+        Logout
+      </button>
+    </div>
+  </aside>
+
+  <!-- Content -->
+  <main class="flex-1 p-8">
+    <router-outlet></router-outlet>
+  </main>
+</div>

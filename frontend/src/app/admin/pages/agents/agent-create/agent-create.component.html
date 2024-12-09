@@ -1,0 +1,63 @@
+<div class="container mx-auto p-6">
+    <!-- Create Agent Form -->
+    <div class="bg-white shadow rounded-lg p-6 mb-6">
+      <h2 class="text-xl font-bold mb-4">Create Delivery Agent</h2>
+      <form (ngSubmit)="createAgent()" class="space-y-4">
+        <div>
+          <label for="name" class="block text-sm font-medium text-gray-900">Name</label>
+          <input
+            type="text"
+            id="name"
+            [(ngModel)]="newAgent.name"
+            name="name"
+            class="mt-1 py-2 px-3 block w-full rounded-md shadow-sm border-gray-400 bg-gray-50 focus:border-gray-800 focus:ring-gray-800"
+          />
+        </div>
+        <div>
+          <label for="contact" class="block text-sm font-medium text-gray-900">Contact Info</label>
+          <input
+            type="text"
+            id="contact"
+            [(ngModel)]="newAgent.contactInfo"
+            name="contact"
+            class="mt-1 py-2 px-3 block w-full rounded-md shadow-sm border-gray-400 bg-gray-50 focus:border-gray-800 focus:ring-gray-800"
+          />
+        </div>
+        <button
+          type="submit"
+          class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:ring focus:ring-indigo-400"
+        >
+          Create Agent
+        </button>
+      </form>
+    </div>
+  
+    <!-- Delivery Agents Table -->
+    <div class="bg-white shadow rounded-lg p-6">
+      <h2 class="text-xl font-bold mb-4">Delivery Agents</h2>
+      <table class="table-auto w-full text-left border-collapse border border-gray-200">
+        <thead>
+          <tr class="bg-gray-100">
+            <th class="border border-gray-200 px-4 py-2">Name</th>
+            <th class="border border-gray-200 px-4 py-2">Contact Info</th>
+            <th class="border border-gray-200 px-4 py-2">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let agent of agents">
+            <td class="border border-gray-200 px-4 py-2">{{ agent.name }}</td>
+            <td class="border border-gray-200 px-4 py-2">{{ agent.contactInfo }}</td>
+            <td class="border border-gray-200 px-4 py-2">
+              <button
+                (click)="navigateToAssignAgent(agent.agentId)"
+                class="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+              >
+                Assign Agent
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  

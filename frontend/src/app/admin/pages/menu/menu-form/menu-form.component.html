@@ -1,0 +1,81 @@
+<div class="container mx-auto mt-8">
+    <h1 class="text-3xl font-bold text-gray-800 mb-6">Menu Management</h1>
+    
+    <!-- Add Dish Form -->
+    <form (ngSubmit)="addMenu()" class="mb-8 bg-gray-200 shadow-md rounded-lg p-6">
+      <h2 class="text-xl font-semibold text-gray-700 mb-4">{{isEdit ? "Edit dish":"Add New Dish"}}</h2>
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label for="name" class="block text-sm font-medium text-gray-900">Dish Name</label>
+          <input id="name" [(ngModel)]="newMenu.name" name="name" type="text" 
+                 class="mt-1 p-2 block w-full rounded-md shadow-sm border-gray-400 bg-gray-50 focus:border-gray-800 focus:ring-gray-800" />
+        </div>
+        <div>
+          <label for="category" class="block text-sm font-medium text-gray-900">Category</label>
+          <select id="category" [(ngModel)]="newMenu.category.categoryId" name="category" 
+                  class="mt-1 py-2 block w-full rounded-md shadow-sm border-gray-400 bg-gray-50 focus:border-gray-800 focus:ring-gray-800">
+            <!-- Loop through categories array -->
+            <option *ngFor="let category of categories" [value]="category.categoryId">{{ category.name }}</option>
+          </select>
+        </div>
+        <div>
+          <label for="description" class="block text-sm font-medium text-gray-900">Description</label>
+          <textarea id="description" [(ngModel)]="newMenu.description" name="description" 
+                    class="mt-1 p-2 block w-full rounded-md shadow-sm border-gray-400 bg-gray-50 focus:border-gray-800 focus:ring-gray-800"></textarea>
+        </div>
+        <div>
+          <label for="price" class="block text-sm font-medium text-gray-900">Price</label>
+          <input id="price" [(ngModel)]="newMenu.price" name="price" type="number" 
+                 class="mt-1 p-2 block w-full rounded-md shadow-sm border-gray-400 bg-gray-50 focus:border-gray-800 focus:ring-gray-800" />
+        </div>
+        <div class="col-span-2">
+          <label class="block text-sm font-medium text-gray-900">Available</label>
+          <input type="checkbox" [(ngModel)]="newMenu.availability" name="availability" 
+                 class="focus:ring-gray-800 focus:border-gray-800">
+        </div>
+      </div>
+      <button type="submit" *ngIf="!isEdit"
+              class="mt-4 bg-gray-800 text-white px-4 py-2 rounded-md shadow hover:bg-gray-900">
+        Add Dish
+      </button>
+      <button type="submit" *ngIf="isEdit"
+              class="mt-4 bg-gray-800 text-white px-4 py-2 rounded-md shadow hover:bg-gray-900">
+        Edit Dish
+      </button>
+    </form>
+  
+    <!-- Menu Table -->
+    <div class="bg-gray-100 shadow-md rounded-lg p-4" *ngIf="!isEdit">
+      <h2 class="text-xl font-semibold text-gray-800 mb-4">Menu List</h2>
+      <table class="min-w-full bg-white rounded-lg overflow-hidden border border-gray-300">
+        <thead class="bg-gray-300">
+          <tr>
+            <th class="px-4 py-2 text-left text-sm font-semibold text-gray-700">Name</th>
+            <th class="px-4 py-2 text-left text-sm font-semibold text-gray-700">Category</th>
+            <th class="px-4 py-2 text-left text-sm font-semibold text-gray-700">Price</th>
+            <th class="px-4 py-2 text-left text-sm font-semibold text-gray-700">Available</th>
+            <th class="px-4 py-2 text-left text-sm font-semibold text-gray-700">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let menu of menus" class="hover:bg-gray-200">
+            <td class="px-4 py-2 text-gray-800">{{ menu.name }}</td>
+            <td class="px-4 py-2 text-gray-800">{{ menu.category.name }}</td>
+            <td class="px-4 py-2 text-gray-800">{{ menu.price }}</td>
+            <td class="px-4 py-2">
+              <span 
+                    class="px-2 py-1 rounded-full text-xs font-medium" 
+                    [ngClass]="menu.availability ? 'bg-green-300 text-green-900' : 'bg-red-300 text-red-900'">
+                {{ menu.availability ? 'Yes' : 'No' }}
+              </span>
+            </td>
+            <td class="px-4 py-2">
+              <button class="text-blue-600 hover:underline" (click)="editMenu(menu.menuId)">Edit</button>
+              <button class="text-red-600 hover:underline ml-2" (click)="deleteMenu(menu.menuId)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  

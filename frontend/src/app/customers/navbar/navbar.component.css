@@ -1,0 +1,31 @@
+/* Style for Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #333;
+}
+
+.navbar .profile-icon,
+.navbar .cart-icon {
+  cursor: pointer;
+}
+
+.navbar .cart-count {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: red;
+  border-radius: 50%;
+  padding: 3px;
+  font-size: 12px;
+  color: white;
+}
+
+.navbar .login-btn {
+  padding: 10px;
+  background-color: #007bff;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+}
